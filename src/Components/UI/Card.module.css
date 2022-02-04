@@ -1,0 +1,12 @@
+.card {
+    border: 1xp solid white;
+    border-radius: 15px;
+}
+
+.red {
+    border-color: tomato;
+}
+
+.blue {
+    border-color: steelblue;
+}

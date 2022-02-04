@@ -1,24 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
+import Players from './Components/Player/Players';
+import PlayerData from './Models/playerData';
 import './App.css';
+
+const DUMMY_DATA = [new PlayerData(1), new PlayerData(2)]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main-content">
+      <Players playerList={DUMMY_DATA} />
     </div>
   );
 }
