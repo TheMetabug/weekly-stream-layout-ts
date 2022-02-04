@@ -1,15 +1,18 @@
-import React from 'react';
-import Players from './Components/Player/Players';
-import PlayerData from './Models/playerData';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import EditPage from './Components/Pages/Edit/EditPage';
+import OverlayPage from './Components/Pages/Overlay/OverlayPage';
 import './App.css';
-
-const DUMMY_DATA = [new PlayerData(1), new PlayerData(2)]
+import WelcomePage from './Components/Pages/Welcome/WelcomePage';
 
 function App() {
   return (
-    <div className="main-content">
-      <Players playerList={DUMMY_DATA} />
-    </div>
+    <Routes>
+      <Route path='/' element={<Navigate replace to='/welcome' />} />
+      <Route path='/welcome' element={<WelcomePage />} />
+      <Route path='/overlay/:tournamentId' element={<OverlayPage />} />
+      <Route path='/edit/:tournamentId' element={<EditPage />} />
+    </Routes>
+
   );
 }
 

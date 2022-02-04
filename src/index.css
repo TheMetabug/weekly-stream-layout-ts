@@ -7,3 +7,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(32, 54, 72);
 }
+
+.centered {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.debug-div {
+  position: absolute;
+  right: 0;
+}
+
+.debug-button {
+  background: wheat;
+  color: black;
+  border-radius: 15px;
+  padding: 20px;
+  text-decoration: none;
+  font-size: large;
+  margin: 35px;
+}

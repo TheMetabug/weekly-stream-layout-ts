@@ -1,5 +1,5 @@
-import PlayerData from '../../Models/playerData';
-import Card from '../UI/Card';
+import PlayerData from '../../../../Models/playerData';
+import Card from '../../../UI/Card';
 import classes from './PlayerCard.module.css';
 
 const playerBorderColors: string[] = [
