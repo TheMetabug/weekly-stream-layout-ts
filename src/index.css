@@ -1,19 +1,18 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(32, 54, 72);
+  background-color: rgb(32, 54, 72) !important;
 }
 
 .centered {
   margin: 3rem auto;
-  text-align: center;
+  /* text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .debug-div {
@@ -24,9 +23,8 @@ body {
 .debug-button {
   background: wheat;
   color: black;
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 5px;
+  padding: 5px;
   text-decoration: none;
-  font-size: large;
-  margin: 35px;
+  font-size: medium;
 }

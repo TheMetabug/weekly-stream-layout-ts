@@ -1,2 +1,12 @@
 .players {
+    margin: 1rem auto;
+    list-style: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+.divider {
+    float: left;
+    padding: 1rem;
+    height: 100%;
 }

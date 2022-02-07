@@ -1,6 +1,7 @@
 import PlayerData from '../../../../Models/playerData';
-import Card from '../../../UI/Card';
+import { Button, Card, Col, Container, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import classes from './PlayerCard.module.css';
+import { Envelope, List } from 'react-bootstrap-icons';
 
 const playerBorderColors: string[] = [
     '', // 0 is null so no colors
@@ -10,17 +11,52 @@ const playerBorderColors: string[] = [
     'yellow'
 ];
 
-const PlayerCard: React.FC<{data: PlayerData}> = (props) => {
+const PlayerCard: React.FC<{
+    data: PlayerData;
+    index: number;
+    className: string;
+}> = (props) => {
     const playerData = props.data;
 
     const playerBorderColor = playerBorderColors[playerData.id];
 
     return (
-        <li>
-            <Card className={classes.player} borderColor={playerBorderColor}>
-                <p>{playerData.name}</p>
-            </Card>
-        </li>
+        <Card
+            className={`
+                ${classes.player}
+                ${classes[props.className]}
+                ${classes["player-" + props.index]
+            }`}
+        >
+            <Container className='p-2'>
+                <Row>
+                    <Col lg="8">
+                        <InputGroup>
+                            <FormControl
+                                placeholder="Player"
+                                aria-label="Player name"
+                            />
+                            <Dropdown>
+                                <Dropdown.Toggle>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>Player A</Dropdown.Item>
+                                    <Dropdown.Item>Player B</Dropdown.Item>
+                                    <Dropdown.Item>Player C</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </InputGroup>
+                    </Col>
+                    <Col lg="4">
+                        <InputGroup>
+                            <Button variant="outline-primary">-</Button>
+                            <InputGroup.Text>0</InputGroup.Text>
+                            <Button variant="outline-secondary">+</Button>
+                        </InputGroup>
+                    </Col>
+                </Row>
+            </Container>
+        </Card>
     );
 }
 
