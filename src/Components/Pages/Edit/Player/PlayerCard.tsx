@@ -1,15 +1,6 @@
 import PlayerData from '../../../../Models/playerData';
 import { Button, Card, Col, Container, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import classes from './PlayerCard.module.css';
-import { Envelope, List } from 'react-bootstrap-icons';
-
-const playerBorderColors: string[] = [
-    '', // 0 is null so no colors
-    'red',
-    'blue',
-    'green',
-    'yellow'
-];
 
 const PlayerCard: React.FC<{
     data: PlayerData;
@@ -17,8 +8,6 @@ const PlayerCard: React.FC<{
     className: string;
 }> = (props) => {
     const playerData = props.data;
-
-    const playerBorderColor = playerBorderColors[playerData.id];
 
     return (
         <Card

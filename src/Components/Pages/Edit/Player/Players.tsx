@@ -4,6 +4,7 @@ import Card from "../../../UI/Card";
 import classes from "./Players.module.css";
 import { Fragment } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import Match from "../Info/Match";
 
 const Players: React.FC<{playerList: PlayerData[]}> = (props) => {
     // Error handling if list is empty
@@ -43,6 +44,7 @@ const Players: React.FC<{playerList: PlayerData[]}> = (props) => {
             <Row className="justify-content-md-center">
                 {playerElements}
             </Row>
+            <Match />
         </Fragment>
     );
 }
