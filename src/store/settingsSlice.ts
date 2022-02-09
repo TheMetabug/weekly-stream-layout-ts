@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from ".";
 
 interface SettingsState {
     hasWaves: boolean,
@@ -29,6 +28,6 @@ export const settingsSlice = createSlice({
     }
 });
 
-export const { toggleWaves, togglePools, toggleDoubles } = settingsSlice.actions;
+export const settingsActions = settingsSlice.actions;
 
 export default settingsSlice;

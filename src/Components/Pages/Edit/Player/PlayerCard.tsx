@@ -1,7 +1,7 @@
 import PlayerData from '../../../../Models/playerData';
 import { Button, Card, Col, Container, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import classes from './PlayerCard.module.css';
-import { ChangeEventHandler, MouseEventHandler } from 'react';
+import { MouseEventHandler, useRef } from 'react';
 
 
 const PlayerCard: React.FC<{
@@ -14,6 +14,7 @@ const PlayerCard: React.FC<{
     decreaseScore: any;
 }> = (props) => {
     const playerData : PlayerData = props.data;
+    const enteredName = useRef<HTMLInputElement>(null);
 
     const nameDropdownItems = props.nameList.map(name => {
         return (
@@ -29,9 +30,9 @@ const PlayerCard: React.FC<{
         props.decreaseScore(playerData.id);
     }
 
-    const nameChangeHandler: ChangeEventHandler = (event) => {
-        console.log(event.target.nodeValue);
-    }
+    // const nameChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    //     console.log(event.currentTarget.value);
+    // }
 
     return (
         <Card
@@ -48,8 +49,7 @@ const PlayerCard: React.FC<{
                             <FormControl
                                 placeholder="Player"
                                 aria-label="Player name"
-                                value={playerData.name}
-                                onChange={nameChangeHandler}
+                                ref={enteredName}
                             />
                             <Dropdown>
                                 <Dropdown.Toggle />

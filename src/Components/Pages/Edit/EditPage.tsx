@@ -4,6 +4,7 @@ import Players from "./Player/Players";
 import { Card, Container } from "react-bootstrap";
 
 import classes from "./EditPage.module.css";
+import Settings from "./Settings/Settings";
 
 const EditPage: React.FC = () => {
 
@@ -15,6 +16,7 @@ const EditPage: React.FC = () => {
             <Container className="p-2">
                 <Card body className={`centered ${classes.content}`}>
                     <Players />
+                    <Settings />
                 </Card>
             </Container>
         </Container>
