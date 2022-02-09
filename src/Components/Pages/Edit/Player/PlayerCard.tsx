@@ -1,13 +1,37 @@
 import PlayerData from '../../../../Models/playerData';
 import { Button, Card, Col, Container, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import classes from './PlayerCard.module.css';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
+
 
 const PlayerCard: React.FC<{
     data: PlayerData;
     index: number;
+    nameList: string[];
     className: string;
+    score: number;
+    increaseScore: any;
+    decreaseScore: any;
 }> = (props) => {
-    const playerData = props.data;
+    const playerData : PlayerData = props.data;
+
+    const nameDropdownItems = props.nameList.map(name => {
+        return (
+            <Dropdown.Item key={name}>{name}</Dropdown.Item>
+        );
+    })
+
+    const increaseScoreHandler : MouseEventHandler = () => {
+        props.increaseScore(playerData.id);
+    }
+
+    const decreaseScoreHandler: MouseEventHandler = () => {
+        props.decreaseScore(playerData.id);
+    }
+
+    const nameChangeHandler: ChangeEventHandler = (event) => {
+        console.log(event.target.nodeValue);
+    }
 
     return (
         <Card
@@ -19,28 +43,27 @@ const PlayerCard: React.FC<{
         >
             <Container className='p-2'>
                 <Row>
-                    <Col lg="8">
+                    <Col xs="8">
                         <InputGroup>
                             <FormControl
                                 placeholder="Player"
                                 aria-label="Player name"
+                                value={playerData.name}
+                                onChange={nameChangeHandler}
                             />
                             <Dropdown>
-                                <Dropdown.Toggle>
-                                </Dropdown.Toggle>
+                                <Dropdown.Toggle />
                                 <Dropdown.Menu>
-                                    <Dropdown.Item>Player A</Dropdown.Item>
-                                    <Dropdown.Item>Player B</Dropdown.Item>
-                                    <Dropdown.Item>Player C</Dropdown.Item>
+                                    { nameDropdownItems }
                                 </Dropdown.Menu>
                             </Dropdown>
                         </InputGroup>
                     </Col>
-                    <Col lg="4">
+                    <Col xs="auto">
                         <InputGroup>
-                            <Button variant="outline-primary">-</Button>
-                            <InputGroup.Text>0</InputGroup.Text>
-                            <Button variant="outline-secondary">+</Button>
+                            <Button variant="outline-primary" onClick={decreaseScoreHandler}>-</Button>
+                            <InputGroup.Text>{props.score}</InputGroup.Text>
+                            <Button variant="outline-secondary" onClick={increaseScoreHandler}>+</Button>
                         </InputGroup>
                     </Col>
                 </Row>
