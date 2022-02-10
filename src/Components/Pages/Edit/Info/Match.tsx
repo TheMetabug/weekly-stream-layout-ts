@@ -1,76 +1,91 @@
-import { Button, Card, Col, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
-import { Plus, Dash } from 'react-bootstrap-icons';
-import classes from 'Match.module.css';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    FormControl,
+    InputGroup,
+    Row,
+} from "react-bootstrap";
+import { Plus, Dash } from "react-bootstrap-icons";
+import classes from "Match.module.css";
+import SimpleDropDown from "../../../UI/SimpleDropdown";
+import BestOf from "./Bestof";
+import Pool from "./Pool";
+import Round from "./Round";
+import Waves from "./Wave";
+import { Fragment } from "react";
+import { useAppSelector } from "../../../../hooks";
+
+const waveNames: string[] = [
+    "None",
+    "Wave A",
+    "Wave B",
+    "Wave C",
+    "Wave E",
+    "Wave F",
+    "Wave G",
+];
+
+const roundNames: string[] = [
+    "Friendlies",
+    "Grand Final",
+    "Semi Final",
+    "Quarter Final",
+    "Round",
+];
 
 const Match: React.FC = () => {
+    const hasWaves: boolean = useAppSelector(
+        (state) => state.settings.hasWaves
+    );
+    const hasPools: boolean = useAppSelector(
+        (state) => state.settings.hasPools
+    );
+    const isDoubles: boolean = useAppSelector(
+        (state) => state.settings.isDoubles
+    );
+
+    const waveNameChangeHandler = (value: string) => {};
+
+    const roundNameChangeHandler = (value: string) => {};
+
+    const poolChangeHandler = (value: string) => {};
+
+    const bestOfChangeHandler = (value: string) => {};
+
+    const wavesFragment = (
+        <Waves
+            className={""}
+            listItems={waveNames}
+            onChange={waveNameChangeHandler}
+        />
+    );
+
+    const roundFragment = (
+        <Round
+            className={""}
+            listItems={roundNames}
+            onChange={roundNameChangeHandler}
+        />
+    );
+
+    const poolFragment = <Pool className="" onChange={poolChangeHandler} />;
+
+    const bestOfFragment = <BestOf className="" onChange={bestOfChangeHandler} />;
+
     return (
-        <Row className="justify-content-md-center m-5">
-            <Card>
-                <Row className="justify-content-md-center m-2">
-                    <Col lg="auto">
-                        <InputGroup>
-                            <FormControl
-                                placeholder="Wave A"
-                                aria-label="Wave name"
-                            />
-                            <Dropdown>
-                                <Dropdown.Toggle>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>None</Dropdown.Item>
-                                    <Dropdown.Item>Wave A</Dropdown.Item>
-                                    <Dropdown.Item>Wave B</Dropdown.Item>
-                                    <Dropdown.Item>Wave C</Dropdown.Item>
-                                    <Dropdown.Item>Wave E</Dropdown.Item>
-                                    <Dropdown.Item>Wave F</Dropdown.Item>
-                                    <Dropdown.Item>Wave G</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </InputGroup>
-                    </Col>
-
-                    <Col lg="auto">
-                        <InputGroup>
-                            <Button variant="outline-secondary"><Dash /></Button>
-                            <InputGroup.Text>Pools</InputGroup.Text>
-                            <InputGroup.Text>0</InputGroup.Text>
-                            <Button variant="outline-secondary"><Plus /></Button>
-                        </InputGroup>
-                    </Col>
-
-                    <Col lg="auto">
-                        <InputGroup>
-                            <FormControl
-                                placeholder="Round 1"
-                                aria-label="Player name"
-                            />
-                            <Dropdown>
-                                <Dropdown.Toggle>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>Round</Dropdown.Item>
-                                    <Dropdown.Item>Quarter Final</Dropdown.Item>
-                                    <Dropdown.Item>Semi Final</Dropdown.Item>
-                                    <Dropdown.Item>Grand Final</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </InputGroup>
-                    </Col>
-                </Row>
-
-                <Row className="justify-content-md-center m-2">
-                    <Col lg="auto">
-                        <InputGroup>
-                            <Button variant="outline-secondary"><Dash /></Button>
-                            <InputGroup.Text>BO</InputGroup.Text>
-                            <InputGroup.Text>0</InputGroup.Text>
-                            <Button variant="outline-secondary"><Plus /></Button>
-                        </InputGroup>
-                    </Col>
-                </Row>
-            </Card>
-        </Row>
-    )
-}
+        <Fragment>
+            <Row className="justify-content-md-center m-2">
+                {hasWaves && wavesFragment}
+                {roundFragment}
+            </Row>
+            <Row className="justify-content-md-center m-2">
+                {hasPools && poolFragment}
+                {bestOfFragment}
+            </Row>
+        </Fragment>
+    );
+};
 
 export default Match;

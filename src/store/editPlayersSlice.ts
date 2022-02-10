@@ -38,6 +38,12 @@ export const editPlayersSlice = createSlice({
                 return player !== payload;
             });
         },
+        swapPlayers: (state) => {
+            state.playerList = state.playerList.reverse();
+        },
+        resetPlayers: (state) => {
+            state.playerList = DUMMY_DATA;
+        },
         increaseScore: (state, { payload }: PayloadAction<string>) => {
             const id = payload;
             const selectedPlayer: PlayerData = state.playerList.find(player => player.id === id) as PlayerData;
