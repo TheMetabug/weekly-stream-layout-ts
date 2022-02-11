@@ -7,8 +7,9 @@ import Match from "../Info/Match";
 import classes from "./Players.module.css";
 import PlayerData from "../../../../Models/playerData";
 import { editPlayerActions } from "../../../../store/editPlayersSlice";
+import { Recycle, Share, Trash } from "react-bootstrap-icons";
 
-const Players: React.FC = (props) => {
+const Players: React.FC<{onUpdate: any}> = (props) => {
     const dispatch = useAppDispatch();
 
     const playerList: PlayerData[] = useAppSelector(
@@ -33,6 +34,13 @@ const Players: React.FC = (props) => {
         dispatch(editPlayerActions.decreaseScore(playerId));
     };
 
+    const changeNameHandler = (playerName: string, playerId: string): void => {
+        dispatch(editPlayerActions.changePlayerName({
+            name: playerName,
+            id: playerId
+        }));
+    }
+
     const swapHandler = (): void => {
         dispatch(editPlayerActions.swapPlayers());
     };
@@ -41,11 +49,13 @@ const Players: React.FC = (props) => {
         dispatch(editPlayerActions.resetPlayers());
     };
 
+    const updateHandler = () => {
+        props.onUpdate();
+    }
+
     let curIndex = 0;
     const playerElements = playerList.map((playerData) => {
         curIndex++;
-        const colLg = "auto";
-
         return (
             <Col sm="auto" key={playerData.id}>
                 <PlayerCard
@@ -56,6 +66,7 @@ const Players: React.FC = (props) => {
                     index={curIndex}
                     decreaseScore={decreaseScoreHandler}
                     increaseScore={increaseScoreHandler}
+                    changeName={changeNameHandler}
                 />
             </Col>
         );
@@ -65,13 +76,14 @@ const Players: React.FC = (props) => {
         <Fragment>
             <Row className="justify-content-sm-center">
                 <Col xs="auto" className={classes.actions}>
-                    <Button className="m-2" onClick={swapHandler}>Swap</Button>
-                    <Button className="m-2" onClick={resetHandler}>Reset</Button>
+                    <Button className="m-2" variant="secondary" onClick={swapHandler}>Swap <Share /></Button>
+                    <Button className="m-2" variant="secondary" onClick={resetHandler}>Reset <Trash /></Button>
+                    <Button className="m-2" variant="success" onClick={updateHandler}>Update <Recycle /></Button>
                 </Col>
             </Row>
             <Row className="justify-content-sm-center">
                 {playerElements}
-            </Row>        
+            </Row>
         </Fragment>
     );
 };

@@ -1,21 +1,11 @@
-import {
-    Button,
-    Card,
-    Col,
-    Dropdown,
-    FormControl,
-    InputGroup,
-    Row,
-} from "react-bootstrap";
-import { Plus, Dash } from "react-bootstrap-icons";
-import classes from "Match.module.css";
-import SimpleDropDown from "../../../UI/SimpleDropdown";
+import { Row } from "react-bootstrap";
 import BestOf from "./Bestof";
 import Pool from "./Pool";
 import Round from "./Round";
 import Waves from "./Wave";
 import { Fragment } from "react";
-import { useAppSelector } from "../../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { editMatchActions } from "../../../../store/editMatchSlice";
 
 const waveNames: string[] = [
     "None",
@@ -36,29 +26,63 @@ const roundNames: string[] = [
 ];
 
 const Match: React.FC = () => {
+    const dispatch = useAppDispatch();
+
+    const waveTextValue: string = useAppSelector(
+        (state) => state.editMatchData.currentWave
+    );
+
+    const roundTextValue: string = useAppSelector(
+        (state) => state.editMatchData.currentRound
+    );
+
+    const poolTextValue: string = useAppSelector(
+        (state) => state.editMatchData.currentPool.toString()
+    );
+
+    const bestOfTextValue: string = useAppSelector(
+        (state) => state.editMatchData.currentBestOf.toString()
+    );
     const hasWaves: boolean = useAppSelector(
         (state) => state.settings.hasWaves
     );
+
     const hasPools: boolean = useAppSelector(
         (state) => state.settings.hasPools
     );
-    const isDoubles: boolean = useAppSelector(
-        (state) => state.settings.isDoubles
-    );
 
-    const waveNameChangeHandler = (value: string) => {};
+    const waveNameChangeHandler = (value: string) => {
+        console.log(value);
+        dispatch(editMatchActions.changeWave(value));
+    };
 
-    const roundNameChangeHandler = (value: string) => {};
+    const roundNameChangeHandler = (value: string) => {
+        console.log(value);
+        dispatch(editMatchActions.changeRound(value));
+    };
 
-    const poolChangeHandler = (value: string) => {};
+    const poolIncreaseHandler = () => {
+        dispatch(editMatchActions.increasePool());
+    };
 
-    const bestOfChangeHandler = (value: string) => {};
+    const poolDecreaseHandler = () => {
+        dispatch(editMatchActions.decreasePool());
+    };
+
+    const bestOfIncreaseHandler = () => {
+        dispatch(editMatchActions.increaseBestOf());
+    };
+
+    const bestOfDecreaseHandler = () => {
+        dispatch(editMatchActions.decreaseBestOf());
+    };
 
     const wavesFragment = (
         <Waves
             className={""}
             listItems={waveNames}
             onChange={waveNameChangeHandler}
+            inputValue={waveTextValue}
         />
     );
 
@@ -67,12 +91,23 @@ const Match: React.FC = () => {
             className={""}
             listItems={roundNames}
             onChange={roundNameChangeHandler}
+            inputValue={roundTextValue}
         />
     );
 
-    const poolFragment = <Pool className="" onChange={poolChangeHandler} />;
+    const poolFragment = <Pool
+        className=""
+        onDecrease={poolDecreaseHandler}
+        onIncrease={poolIncreaseHandler}
+        inputValue={poolTextValue}
+        />;
 
-    const bestOfFragment = <BestOf className="" onChange={bestOfChangeHandler} />;
+    const bestOfFragment = <BestOf
+        className=""
+        onDecrease={bestOfDecreaseHandler}
+        onIncrease={bestOfIncreaseHandler}
+        inputValue={bestOfTextValue}
+        />;
 
     return (
         <Fragment>

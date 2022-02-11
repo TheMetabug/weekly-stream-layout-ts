@@ -2,16 +2,16 @@ import PlayerData from "../../../../Models/playerData";
 import {
     Button,
     Card,
-    Col,
     Container,
-    Dropdown,
     FormControl,
     InputGroup,
     Row,
 } from "react-bootstrap";
 import classes from "./PlayerCard.module.css";
-import { MouseEventHandler, useRef } from "react";
+import { MouseEventHandler } from "react";
 import SimpleInputGroup from "../../../UI/SimpleInputGroup";
+import { Dash, Plus } from "react-bootstrap-icons";
+import SimpleDropDown from "../../../UI/SimpleDropdown";
 
 const PlayerCard: React.FC<{
     data: PlayerData;
@@ -21,13 +21,10 @@ const PlayerCard: React.FC<{
     score: number;
     increaseScore: any;
     decreaseScore: any;
+    changeName: any;
 }> = (props) => {
     const playerData: PlayerData = props.data;
-    const enteredName = useRef<HTMLInputElement>(null);
-
-    const nameDropdownItems = props.nameList.map((name) => {
-        return <Dropdown.Item key={name}>{name}</Dropdown.Item>;
-    });
+    const enteredName = playerData.name;
 
     const increaseScoreHandler: MouseEventHandler = () => {
         props.increaseScore(playerData.id);
@@ -37,9 +34,13 @@ const PlayerCard: React.FC<{
         props.decreaseScore(playerData.id);
     };
 
-    // const nameChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    //     console.log(event.currentTarget.value);
-    // }
+    const nameChangeHandler: any = (event: any) => {
+        props.changeName(event.target.value, props.data.id);
+    }
+
+    const nameSelectedHandler: any = (value: string) => {
+        props.changeName(value, props.data.id);
+    }
 
     return (
         <Card
@@ -55,26 +56,28 @@ const PlayerCard: React.FC<{
                         <FormControl
                             placeholder="Player"
                             aria-label="Player name"
-                            ref={enteredName}
+                            value={enteredName}
+                            onChange={nameChangeHandler}
                         />
-                        <Dropdown>
-                            <Dropdown.Toggle />
-                            <Dropdown.Menu>{nameDropdownItems}</Dropdown.Menu>
-                        </Dropdown>
+                        <SimpleDropDown
+                            className={""}
+                            listItems={props.nameList}
+                            onChange={nameSelectedHandler}
+                        />
                     </SimpleInputGroup>
                     <SimpleInputGroup>
                         <Button
                             variant="outline-primary"
                             onClick={decreaseScoreHandler}
                         >
-                            -
+                            <Dash />
                         </Button>
                         <InputGroup.Text>{props.score}</InputGroup.Text>
                         <Button
                             variant="outline-secondary"
                             onClick={increaseScoreHandler}
                         >
-                            +
+                            <Plus />
                         </Button>
                     </SimpleInputGroup>
                 </Row>

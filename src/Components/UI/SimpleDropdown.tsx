@@ -1,5 +1,4 @@
-import { ChangeEventHandler, FormEventHandler } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 const SimpleDropDown: React.FC<{
     className: string;
@@ -8,21 +7,17 @@ const SimpleDropDown: React.FC<{
 }> = (props) => {
 
     const listItems = props.listItems.map(item => {
-        return <Dropdown.Item key={item}>{item}</Dropdown.Item>;
+        return <Dropdown.Item key={item} eventKey={item}>{item}</Dropdown.Item>;
     });
 
-    const onChangeHandler: FormEventHandler = (event) => {
-        props.onChange(event.currentTarget.textContent);
+    const onChangeHandler: any = (event: string) => {
+        props.onChange(event);
     };
 
     return (
-        <Dropdown className={props.className} onChange={onChangeHandler}>
-            <Dropdown.Toggle>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                { listItems }
-            </Dropdown.Menu>
-        </Dropdown>
+        <DropdownButton title="" className={props.className} onSelect={onChangeHandler}>
+            { listItems }
+        </DropdownButton>
     )
 
 }

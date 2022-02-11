@@ -1,4 +1,3 @@
-import { FormEventHandler, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import SimpleDropDown from "../../../UI/SimpleDropdown";
 import SimpleInputGroup from "../../../UI/SimpleInputGroup";
@@ -7,17 +6,16 @@ const Round: React.FC<{
     className: string;
     listItems: string[];
     onChange: any;
+    inputValue: string;
 }> = (props) => {
-    const [roundName, setRoundName] = useState("");
+    const textValue = props.inputValue;
 
-    const dropDownOnChangeHandler: FormEventHandler = (event) => {
-        const value = event.currentTarget.textContent;
-        if (value !== null) setRoundName(value);
-        else setRoundName("");
+    const dropDownOnChangeHandler: any = (value: string) => {
+        if (value !== null) props.onChange(value);
     };
 
-    const roundNameOnChangeHandler: FormEventHandler = (event) => {
-        const value = event.currentTarget.textContent;
+    const roundNameOnChangeHandler: any = (event: any) => {
+        const value = event.currentTarget.value;
         if (value !== null) props.onChange(value);
     };
 
@@ -25,8 +23,8 @@ const Round: React.FC<{
         <SimpleInputGroup>
             <FormControl
                 placeholder="Round 1"
-                aria-label="Player name"
-                value={roundName}
+                aria-label="Round name"
+                value={textValue}
                 onChange={roundNameOnChangeHandler}
             />
             <SimpleDropDown

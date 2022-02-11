@@ -9,6 +9,10 @@ import Match from "./Info/Match";
 
 const EditPage: React.FC = () => {
 
+    const onUpdateHandler: any = () => {
+        
+    }
+
     return (
         <Container fluid>
             <Container className="p-2">
@@ -16,7 +20,7 @@ const EditPage: React.FC = () => {
             </Container>
             <Container className="p-2">
                 <Card body className={`centered ${classes.content}`}>
-                    <Players />
+                    <Players onUpdate={onUpdateHandler} />
                     <Match />
                     <Settings />
                 </Card>

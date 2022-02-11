@@ -30,6 +30,12 @@ export const editPlayersSlice = createSlice({
                 return player.id !== payload;
             });
         },
+        changePlayerName: (state, { payload }: PayloadAction<{name: string, id: string}>) => {      
+            const id = payload.id;
+            const selectedPlayer: PlayerData = state.playerList.find(player => player.id === id) as PlayerData;
+            if (selectedPlayer)
+                selectedPlayer.name = payload.name;
+        },
         addPlayerName: (state, { payload }: PayloadAction<string>) => {
             state.playerNames = state.playerNames.concat([payload]);
         },

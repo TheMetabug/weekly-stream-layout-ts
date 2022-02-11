@@ -1,4 +1,3 @@
-import { FormEventHandler, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import SimpleDropDown from "../../../UI/SimpleDropdown";
 import SimpleInputGroup from "../../../UI/SimpleInputGroup";
@@ -7,17 +6,16 @@ const Waves: React.FC<{
     className: string;
     listItems: string[];
     onChange: any;
+    inputValue: string;
 }> = (props) => {
-    const [waveName, setRoundName] = useState("");
+    const textValue = props.inputValue;
 
-    const dropDownOnChangeHandler: FormEventHandler = (event) => {
-        const value = event.currentTarget.textContent;
-        if (value !== null) setRoundName(value);
-        else setRoundName("");
+    const dropDownOnChangeHandler: any = (value: string) => {
+        if (value !== null) props.onChange(value);
     };
 
-    const waveNameOnChangeHandler: FormEventHandler = (event) => {
-        const value = event.currentTarget.textContent;
+    const waveNameOnChangeHandler: any = (event: any) => {
+        const value = event.currentTarget.value;
         if (value !== null) props.onChange(value);
     };
 
@@ -26,7 +24,7 @@ const Waves: React.FC<{
             <FormControl
                 placeholder="Wave A"
                 aria-label="Wave name"
-                value={waveName}
+                value={textValue}
                 onChange={waveNameOnChangeHandler}
             />
             <SimpleDropDown
