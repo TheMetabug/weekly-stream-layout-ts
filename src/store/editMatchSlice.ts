@@ -40,6 +40,16 @@ export const editMatchSlice = createSlice({
     name: "editMatch",
     initialState,
     reducers: {
+        getData: (state): any => {
+            return {
+                waveNames: state.waveNames.toString(),
+                roundNames: state.roundNames.toString(),
+                currentPool: state.currentPool.toString(),
+                currentBestOf: state.currentBestOf.toString(),
+                currentWave: state.currentWave.toString(),
+                currentRound: state.currentRound.toString(),
+            }
+        },
         increasePool: (state) => {
             if (state.currentPool < 20) {
                 state.currentPool++;

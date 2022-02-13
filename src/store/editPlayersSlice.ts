@@ -22,9 +22,18 @@ export const editPlayersSlice = createSlice({
     name: "editPlayers",
     initialState,
     reducers: {
-        // addPlayer: (state, { payload }: PayloadAction<PlayerData>) => {
-        //     state.playerList = state.playerList.concat([payload]);
-        // },
+        getData: (state): any => {
+            let playerData = [];
+            for (let index = 0; index < state.playerList.length; index++) {
+                const element = state.playerList[index];
+                playerData.push({
+                    name: element.name.toString(),
+                    id: element.id.toString(),
+                    score: element.score.toString(),
+                })      
+            }
+            return playerData;
+        },
         removePlayer: (state, { payload }: PayloadAction<string>) => {
             state.playerList = state.playerList.filter(player => {
                 return player.id !== payload;
