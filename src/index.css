@@ -1,10 +1,22 @@
+:root {
+    --app-color-bg: #0B0C10;
+    --app-color-bg-secondary: #1F2833;
+    --main-bg-color-gray: #C5C6C7;
+    --main-bg-color-light: #66FCF1;
+    --main-bg-color-light-secondary: #45A29E;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
         "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(32, 54, 72) !important;
+    background-color: var(--app-color-bg) !important;
+}
+
+span, input, .btn {
+    font-weight: 500 !important;
 }
 
 .centered {
@@ -32,4 +44,29 @@ body {
 .btn:focus {
     outline: none;
     box-shadow: none;
+}
+
+.dark-theme-bg {
+    background-color: var(--app-color-bg-secondary) !important;
+}
+
+.btn-primary {
+    background-color: var(--main-bg-color-light-secondary) !important;
+    border-color: var(--main-bg-color-light-secondary) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--main-bg-color-light) !important;
+}
+
+.dark-theme-btn-secondary {
+
+}
+
+.dark-theme-btn-success {
+
+}
+
+.form-control,input,.input-group-text {
+    background-color: var(--main-bg-color-gray) !important;
 }

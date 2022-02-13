@@ -67,7 +67,7 @@ const PlayerCard: React.FC<{
                     </SimpleInputGroup>
                     <SimpleInputGroup>
                         <Button
-                            variant="outline-primary"
+                            variant="outline-secondary"
                             onClick={decreaseScoreHandler}
                         >
                             <Dash />

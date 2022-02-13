@@ -19,7 +19,7 @@ const EditPage: React.FC = () => {
                 <Link to="/welcome" className="debug-button mr-2">Back</Link>
             </Container>
             <Container className="p-2">
-                <Card body className={`centered ${classes.content}`}>
+                <Card body className={`centered dark-theme-bg ${classes.content}`}>
                     <Players onUpdate={onUpdateHandler} />
                     <Match />
                     <Settings />

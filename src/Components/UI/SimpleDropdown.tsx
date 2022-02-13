@@ -15,7 +15,7 @@ const SimpleDropDown: React.FC<{
     };
 
     return (
-        <DropdownButton title="" className={props.className} onSelect={onChangeHandler}>
+        <DropdownButton title="" className={"dark-theme-btn-primary"} onSelect={onChangeHandler}>
             { listItems }
         </DropdownButton>
     )
