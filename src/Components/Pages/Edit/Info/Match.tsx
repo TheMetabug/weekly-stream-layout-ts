@@ -52,12 +52,10 @@ const Match: React.FC = () => {
     );
 
     const waveNameChangeHandler = (value: string) => {
-        console.log(value);
         dispatch(editMatchActions.changeWave(value));
     };
 
     const roundNameChangeHandler = (value: string) => {
-        console.log(value);
         dispatch(editMatchActions.changeRound(value));
     };
 
@@ -107,7 +105,7 @@ const Match: React.FC = () => {
         onDecrease={bestOfDecreaseHandler}
         onIncrease={bestOfIncreaseHandler}
         inputValue={bestOfTextValue}
-        />;
+    />;
 
     return (
         <Fragment>

@@ -2,8 +2,8 @@
     --app-color-bg: #0B0C10;
     --app-color-bg-secondary: #1F2833;
     --main-bg-color-gray: #C5C6C7;
-    --main-bg-color-light: #66FCF1;
-    --main-bg-color-light-secondary: #45A29E;
+    --main-bg-color-light: #45A29E;
+    --main-bg-color-light-secondary: #347975;
 }
 
 body {
@@ -21,10 +21,6 @@ span, input, .btn {
 
 .centered {
     margin: 3rem auto;
-    /* text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 .debug-div {

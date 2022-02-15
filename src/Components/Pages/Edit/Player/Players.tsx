@@ -2,12 +2,11 @@ import { Fragment } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../../hooks";
 import PlayerCard from "./PlayerCard";
-import Match from "../Info/Match";
 
 import classes from "./Players.module.css";
 import PlayerData from "../../../../Models/playerData";
 import { editPlayerActions } from "../../../../store/editPlayersSlice";
-import { Recycle, Share, Trash } from "react-bootstrap-icons";
+import { Recycle, Share, /* Trash */ } from "react-bootstrap-icons";
 
 const Players: React.FC<{onUpdate: any}> = (props) => {
     const dispatch = useAppDispatch();
@@ -15,6 +14,7 @@ const Players: React.FC<{onUpdate: any}> = (props) => {
     const playerList: PlayerData[] = useAppSelector(
         (state) => state.editPlayerData.playerList
     );
+    
     const playerNameList: string[] = useAppSelector(
         (state) => state.editPlayerData.playerNames
     );
@@ -45,9 +45,9 @@ const Players: React.FC<{onUpdate: any}> = (props) => {
         dispatch(editPlayerActions.swapPlayers());
     };
 
-    const resetHandler = (): void => {
-        dispatch(editPlayerActions.resetPlayers());
-    };
+    // const resetHandler = (): void => {
+    //     dispatch(editPlayerActions.resetPlayers());
+    // };
 
     const updateHandler = () => {
         props.onUpdate();
@@ -76,8 +76,8 @@ const Players: React.FC<{onUpdate: any}> = (props) => {
         <Fragment>
             <Row className="justify-content-sm-center">
                 <Col xs="auto" className={classes.actions}>
-                    <Button className="m-2" variant="secondary" onClick={swapHandler}>Swap <Share /></Button>
-                    <Button className="m-2" variant="secondary" onClick={resetHandler}>Reset <Trash /></Button>
+                    <Button className="m-2" onClick={swapHandler}>Swap <Share /></Button>
+                    {/* <Button className="m-2" onClick={resetHandler}>Reset <Trash /></Button> */}
                     <Button className="m-2" variant="success" onClick={updateHandler}>Update <Recycle /></Button>
                 </Col>
             </Row>
