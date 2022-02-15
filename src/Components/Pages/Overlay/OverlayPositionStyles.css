@@ -1,0 +1,27 @@
+.ov-container {
+    margin-top: 40px;
+}
+
+.ov-mid-space {
+    max-width: 270px;
+}
+
+.ov-score {
+    font-size: 46px;
+    font-weight: 600;
+    max-width: 50px;
+    line-height: 62px;
+}
+
+.ov-player {
+    font-size: 40px;
+    font-weight: 600;
+    max-width: 475px;
+}
+
+.ov-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 3px;
+    max-width: 225px;
+}

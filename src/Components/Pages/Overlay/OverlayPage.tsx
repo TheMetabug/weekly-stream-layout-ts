@@ -1,8 +1,18 @@
-import { Fragment, MouseEventHandler, useState } from "react";
+import { Fragment, MouseEventHandler, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { overlayDataActions } from "../../../store/overlayDataSlice";
 import classes from "./OverlayPage.module.css";
+import "./OverlayPositionStyles.css";
+
+const positionClasses = {
+    container: 'ov-container ',
+    midSpace: 'ov-mid-space',
+    score: 'ov-score',
+    player: 'ov-player',
+    title: 'ov-title',
+}
 
 const OverlayPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -15,47 +25,71 @@ const OverlayPage: React.FC = () => {
     const matchTitle = useAppSelector((state) => state.overlayData.matchTitle);
     const matchBestOf = useAppSelector((state) => state.overlayData.matchBestOf);
 
-    const fetchDataHandler: MouseEventHandler = () => {
+    useEffect(() => {
+        console.log("mount");
+        // setInterval(() => fetchDataHandler(), 3000);
+    }, [])
+    
+    const fetchDataHandler = () => {
+        console.log("hey");
+
         const lastUpdate: string | null = localStorage.getItem("lastUpdate");
+        console.log(lastUpdate + " : " + lastUpdated);
         if (lastUpdate != null) {
-            if (Date.parse(lastUpdated) > Date.parse(lastUpdate)) {
+            if (parseInt(lastUpdated) > parseInt(lastUpdate)) {
                 const overlayData = localStorage.getItem("overlayData");
+                console.log(overlayData);
                 if (overlayData != null) {
+                    console.log(overlayData);
                     const parsedData = JSON.parse(overlayData);
                     const playerData = parsedData.playerData;
                     const matchData = parsedData.matchData;
+                    parseData(playerData, matchData);
                 }
+                localStorage.setItem("lastUpdate", Date.now().toString())
             }
         }
     }
 
+    const parseData = (playerData: any, matchData: any) => {
+        console.log(playerData);
+        console.log(matchData);
+        if (playerData != null && matchData != null) {
+            const player1 = playerData[0];
+            const player2 = playerData[1];
+            dispatch(overlayDataActions.setPlayer1Name(player1.name));
+            dispatch(overlayDataActions.setPlayer2Name(player2.name));
+            dispatch(overlayDataActions.setPlayer1Score(player1.score));
+            dispatch(overlayDataActions.setPlayer2Score(player2.score));
+            dispatch(overlayDataActions.setMatchBestOf(matchData.currentBestOf));
+            dispatch(overlayDataActions.setMatchTitle(matchData.currentRound));
+        }
+    }
+
+    fetchDataHandler();
+
     return (
         <Fragment>
-            <div className="debug-div">
-                <div>
-                    <Link className='debug-button' to="/welcome">Back</Link>
-                </div>
-            </div>
-            <Container fluid className={classes.overlay} >
-                <Row sm="5" className="justify-content-sm-center m-3">
-                    <Col sm="1" className={`${classes.score} ${classes.left}`}>
-                        {leftPlayerScore}
-                    </Col>
-                    <Col sm="1" className={`${classes.player} ${classes.left}`}>
+            <Container fluid className={`${classes.overlay} ${positionClasses.container}`} >
+                <Row className="justify-content-sm-center m-3">
+                    <Col className={`${classes.player} ${classes.left} ${positionClasses.player}`}>
                         {leftPlayerName}
                     </Col>
-                    <Col sm="2">
+                    <Col className={`${classes.score} ${classes.left} ${positionClasses.score}`}>
+                        {leftPlayerScore}
+                    </Col>
+                    <Col className={`${positionClasses.midSpace}`}>
                         
                     </Col>
-                    <Col sm="1" className={`${classes.player} ${classes.right}`}>
-                        {rightPlayerName}
-                    </Col>
-                    <Col sm="1" className={`${classes.score} ${classes.right}`}>
+                    <Col className={`${classes.score} ${classes.right} ${positionClasses.score}`}>
                         {rightPlayerScore}
                     </Col>
+                    <Col className={`${classes.player} ${classes.right} ${positionClasses.player}`}>
+                        {rightPlayerName}
+                    </Col>
                 </Row>
-                <Row sm="5" className="justify-content-sm-center m-3">
-                    <Col sm="2" className={`${classes.match}`}>
+                <Row className="justify-content-sm-center m-3">
+                    <Col className={`${classes.match} ${positionClasses.title}`}>
                         {matchTitle} (Bo {matchBestOf})
                     </Col>
                 </Row>
