@@ -13,9 +13,13 @@ const waveNames: string[] = [
 const roundNames: string[] = [
     "Friendlies",
     "Grand Final",
-    "Semi Final",
-    "Quarter Final",
-    "Round",
+    "Semi Finals",
+    "Quarter Finals",
+    "Round 1",
+    "Round 2",
+    "Round 3",
+    "Round 4",
+    "Round 5",
 ];
 
 interface EditMatchState {
@@ -40,6 +44,17 @@ export const editMatchSlice = createSlice({
     name: "editMatch",
     initialState,
     reducers: {
+        fetchData: (state) => {
+            const overlayData = localStorage.getItem("overlayData");
+
+            // Split and parse stringified data from JSON
+            if (overlayData != null) {
+                const parsedData = JSON.parse(overlayData);
+                const matchData = parsedData.matchData;
+                state.currentBestOf = matchData.currentBestOf;
+                state.currentRound = matchData.currentRound;
+            }
+        },
         setData: (state, { payload }: PayloadAction<any>) => {
             state.currentPool = parseInt(payload.currentPool);
             state.currentBestOf = parseInt(payload.currentBestOf);

@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import PlayerData from "../../../../Models/playerData";
 import {
     Button,
@@ -7,11 +8,10 @@ import {
     InputGroup,
     Row,
 } from "react-bootstrap";
-import classes from "./PlayerCard.module.css";
-import { MouseEventHandler } from "react";
 import SimpleInputGroup from "../../../UI/SimpleInputGroup";
-import { Dash, Plus } from "react-bootstrap-icons";
 import SimpleDropDown from "../../../UI/SimpleDropdown";
+import classes from "./PlayerCard.module.css";
+import { Dash, Plus } from "react-bootstrap-icons";
 
 const PlayerCard: React.FC<{
     data: PlayerData;

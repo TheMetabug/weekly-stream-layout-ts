@@ -1,6 +1,5 @@
-import { Fragment, MouseEventHandler, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { overlayDataActions } from "../../../store/overlayDataSlice";
 import classes from "./OverlayPage.module.css";
@@ -16,7 +15,8 @@ const positionClasses = {
 
 const OverlayPage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const [lastUpdated, setLastUpdated] = useState(Date.now().toString());
+
+    const [lastUpdated, setLastUpdated] = useState("0");
 
     const leftPlayerName = useAppSelector((state) => state.overlayData.leftName);
     const leftPlayerScore = useAppSelector((state) => state.overlayData.leftScore);
@@ -26,34 +26,39 @@ const OverlayPage: React.FC = () => {
     const matchBestOf = useAppSelector((state) => state.overlayData.matchBestOf);
 
     useEffect(() => {
-        console.log("mount");
-        // setInterval(() => fetchDataHandler(), 3000);
-    }, [])
-    
-    const fetchDataHandler = () => {
-        console.log("hey");
+        const interval = setInterval(() => fetchDataHandler(), 3000);
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
 
+    // This handles data fetching from localstorage
+    // TODO: fetch similiar data from actual database
+    const fetchDataHandler = () => {
+        console.log("fetching data..");
+        // Check is data null or not
         const lastUpdate: string | null = localStorage.getItem("lastUpdate");
-        console.log(lastUpdate + " : " + lastUpdated);
+
         if (lastUpdate != null) {
-            if (parseInt(lastUpdated) > parseInt(lastUpdate)) {
-                const overlayData = localStorage.getItem("overlayData");
-                console.log(overlayData);
-                if (overlayData != null) {
-                    console.log(overlayData);
-                    const parsedData = JSON.parse(overlayData);
-                    const playerData = parsedData.playerData;
-                    const matchData = parsedData.matchData;
-                    parseData(playerData, matchData);
-                }
-                localStorage.setItem("lastUpdate", Date.now().toString())
+            const overlayData = localStorage.getItem("overlayData");
+
+            // Split and parse stringified data from JSON
+            if (overlayData != null) {
+                const parsedData = JSON.parse(overlayData);
+                const playerData = parsedData.playerData;
+                const matchData = parsedData.matchData;
+                parseData(playerData, matchData);
             }
+            
+            // Remove lastupdate so we won't update it unnecessarily
+            localStorage.removeItem("lastUpdate")   
+            console.log("success!");
         }
     }
 
+    // This handles data parsing and apply it to redux
+    // TODO: maybe we don't need redux here..
     const parseData = (playerData: any, matchData: any) => {
-        console.log(playerData);
-        console.log(matchData);
         if (playerData != null && matchData != null) {
             const player1 = playerData[0];
             const player2 = playerData[1];
@@ -65,8 +70,6 @@ const OverlayPage: React.FC = () => {
             dispatch(overlayDataActions.setMatchTitle(matchData.currentRound));
         }
     }
-
-    fetchDataHandler();
 
     return (
         <Fragment>

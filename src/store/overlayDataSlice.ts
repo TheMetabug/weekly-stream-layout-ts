@@ -29,10 +29,10 @@ export const overlayDataSlice = createSlice({
             state.leftScore = payload;
         },
         setPlayer2Name: (state, { payload }: PayloadAction<string>) => {
-            state.leftName = payload;
+            state.rightName = payload;
         },
         setPlayer2Score: (state, { payload }: PayloadAction<string>) => {
-            state.leftScore = payload;
+            state.rightScore = payload;
         },
         setMatchTitle: (state, { payload }: PayloadAction<string>) => {
             state.matchTitle = payload;

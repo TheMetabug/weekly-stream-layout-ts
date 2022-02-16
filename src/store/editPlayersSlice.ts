@@ -22,6 +22,25 @@ export const editPlayersSlice = createSlice({
     name: "editPlayers",
     initialState,
     reducers: {
+        fetchData: (state): any => {  
+            const overlayData = localStorage.getItem("overlayData");
+
+            // Split and parse stringified data from JSON
+            if (overlayData != null) {
+                const parsedData = JSON.parse(overlayData);
+                const playerData = parsedData.playerData;
+                
+                const player1 = playerData[0];
+                const player2 = playerData[1];
+                const curPlayer1 = state.playerList[0];
+                const curPlayer2 = state.playerList[1];
+
+                curPlayer1.name = player1.name;
+                curPlayer1.score = player1.score;
+                curPlayer2.name = player2.name;
+                curPlayer2.score = player2.score;
+            }        
+        },
         getData: (state): any => {
             let playerData = [];
             for (let index = 0; index < state.playerList.length; index++) {

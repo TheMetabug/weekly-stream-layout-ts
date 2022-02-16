@@ -53,6 +53,7 @@ const Players: React.FC<{onUpdate: any}> = (props) => {
         props.onUpdate();
     }
 
+    // Create player list elements
     let curIndex = 0;
     const playerElements = playerList.map((playerData) => {
         curIndex++;

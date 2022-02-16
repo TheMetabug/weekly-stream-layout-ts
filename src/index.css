@@ -12,7 +12,7 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--app-color-bg) !important;
+    background-color: var(--app-color-bg);
 }
 
 span, input, .btn {
@@ -53,14 +53,6 @@ span, input, .btn {
 
 .btn-primary:hover {
     background-color: var(--main-bg-color-light) !important;
-}
-
-.dark-theme-btn-secondary {
-
-}
-
-.dark-theme-btn-success {
-
 }
 
 .form-control,input,.input-group-text {
